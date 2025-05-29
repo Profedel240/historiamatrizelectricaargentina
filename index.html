@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: El Sector Eléctrico Argentino</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales del cuerpo y contenedor */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa; /* Gris muy claro */
+            color: #343a40; /* Gris oscuro para el texto */
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #ffffff; /* Fondo blanco para el contenido */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+        }
+        /* Estilos de encabezados */
+        h1 {
+            color: #212529; /* Gris muy oscuro */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        h2 {
+            color: #34495e; /* Azul oscuro suave */
+            font-weight: 600;
+            border-bottom: 2px solid #e9ecef; /* Línea divisoria suave */
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        h3 {
+            color: #495057; /* Gris azulado */
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        h4 {
+            color: #6c757d; /* Gris medio */
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        /* Estilos de texto y listas */
+        p, ul, ol {
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        /* Custom list item style with SVG icon */
+        ul li {
+            list-style: none; /* Remove default bullet */
+            position: relative;
+            padding-left: 1.75rem; /* Space for the icon */
+            margin-bottom: 0.75rem;
+        }
+        ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem; /* Adjust vertical alignment */
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: #5a7d9a; /* Icon color */
+            border-radius: 50%; /* Circle shape */
+        }
+
+        .highlight-text {
+            color: #28a745; /* Verde profesional para resaltar */
+            font-weight: 600;
+        }
+        /* Estilo de las cajas de sección */
+        .section-box {
+            background-color: #f0f4f7; /* Azul claro muy suave */
+            border-left: 5px solid #5a7d9a; /* Borde azul suave */
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        /* Estilos de los botones desplegables */
+        .toggle-button {
+            background-color: #5a7d9a; /* Azul suave */
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+        .toggle-button:hover {
+            background-color: #4a6c8a; /* Azul más oscuro al pasar el ratón */
+        }
+        /* Estilos del contenido desplegable */
+        .toggle-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            padding-top: 0;
+        }
+        .toggle-content.expanded {
+            max-height: 2000px; /* Suficientemente grande para contener el contenido expandido */
+            padding-top: 1rem;
+        }
+        .icon {
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        /* Estilos para el Diagrama de Flujo */
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        .flow-node {
+            background-color: #e0e7eb; /* Gris azulado claro */
+            border: 1px solid #c0d0d8; /* Borde suave */
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            font-weight: 600;
+            color: #34495e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            min-width: 180px;
+        }
+        .flow-arrow {
+            width: 2px;
+            height: 30px;
+            background-color: #6c757d;
+            position: relative;
+        }
+        .flow-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #6c757d;
+        }
+        .horizontal-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap; /* Para responsividad */
+        }
+        .horizontal-flow .flow-arrow {
+            width: 30px;
+            height: 2px;
+        }
+        .horizontal-flow .flow-arrow::after {
+            bottom: auto;
+            right: -5px;
+            left: auto;
+            top: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #6c757d;
+        }
+
+        /* Estilos para el Gráfico de Torta (SVG) */
+        .pie-chart-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto;
+            position: relative;
+        }
+        .pie-chart-legend {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem 2rem;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #495057;
+        }
+        .legend-color-box {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Estilos para la Línea de Tiempo */
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding: 1rem 0;
+            list-style: none;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #ced4da; /* Gris claro para la línea central */
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding: 1rem 2rem;
+            background-color: #f8f9fa;
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            width: calc(50% - 1rem); /* 50% width minus half of gap */
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+            transform: translateX(-1rem); /* Adjust for visual alignment */
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            transform: translateX(1rem); /* Adjust for visual alignment */
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #5a7d9a; /* Punto azul */
+            border-radius: 50%;
+            border: 2px solid #ffffff; /* Borde blanco */
+            z-index: 1;
+        }
+        .timeline-item:nth-child(odd)::before {
+            right: -1.75rem; /* Position relative to the item */
+        }
+        .timeline-item:nth-child(even)::before {
+            left: -1.75rem; /* Position relative to the item */
+        }
+        .timeline-item-date {
+            font-weight: 700;
+            color: #34495e;
+            margin-bottom: 0.5rem;
+        }
+        .timeline-item-title {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Ajustes responsivos para la línea de tiempo */
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 1.5rem; /* Mueve la línea a la izquierda para móviles */
+            }
+            .timeline-item {
+                width: calc(100% - 3rem); /* Ancho completo menos padding a la izquierda */
+                left: 0;
+                padding-left: 2.5rem; /* Espacio para el punto */
+                transform: translateX(0); /* Sin transformación horizontal */
+            }
+            .timeline-item::before {
+                left: 0.75rem; /* Ajusta la posición del punto */
+                right: auto;
+            }
+            .timeline-item:nth-child(odd) {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-4xl text-center mb-6">💡 Infografía Académica: El Sector Eléctrico Argentino - De Sus Orígenes a la Reforma de 1991</h1>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Introducción: La Energía que Forjó una Nación</h2>
+            <p>El sector eléctrico es el pilar fundamental del desarrollo industrial, social y tecnológico de un país. En Argentina, su evolución es un reflejo de las políticas económicas, los avances tecnológicos y las necesidades de una sociedad en constante crecimiento. Esta infografía explora el complejo viaje del sector eléctrico argentino, desde sus humildes comienzos hasta la profunda transformación iniciada por la Ley 24.065 en 1991, analizando las políticas que moldearon su matriz energética y la estructura que lo define hoy.</p>
+        </div>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Bloque 1: Los Albores de la Electricidad en Argentina (Fines del Siglo XIX - Mediados del Siglo XX)</h2>
+            <h3 class="text-xl">🏛️ Contexto Histórico: Luz para el Progreso</h3>
+            <p>La llegada de la electricidad a Argentina a finales del siglo XIX fue un catalizador de modernización, impulsada principalmente por la demanda de iluminación en las crecientes ciudades. Este periodo inicial se caracterizó por la iniciativa privada y la adopción de tecnologías incipientes que sentarían las bases para el futuro desarrollo del sector.</p>
+            <ul>
+                <li><strong>Fin del Siglo XIX:</strong> La electricidad irrumpe en Argentina como una innovación tecnológica clave, inicialmente enfocada en la iluminación pública y privada de las grandes urbes, marcando el inicio de una nueva era de progreso y confort urbano.</li>
+                <li><span class="highlight-text"><strong>1887:</strong></span> Un hito fundacional se produce con la instalación del <span class="highlight-text"><strong>primer alumbrado público eléctrico</strong></span> en la emblemática Plaza de Mayo, en Buenos Aires. Este evento simbolizó la adopción de una tecnología que transformaría la vida nocturna y la seguridad de la ciudad.</li>
+                <li><span class="highlight-text"><strong>1889:</strong></span> Se inaugura la <span class="highlight-text"><strong>primera central eléctrica del país</strong></span> en la calle Balcarce 270 (actualmente en el barrio de La Boca), Buenos Aires. Esta central, operada por la <span class="highlight-text"><strong>Compañía Luz y Fuerza del Ferrocarril Gran Sud</strong></span>, utilizaba máquinas a vapor alimentadas por carbón para generar energía, reflejando la tecnología predominante de la época. Su ubicación estratégica cerca de la demanda inicial era fundamental para la eficiencia del suministro.</li>
+            </ul>
+
+            <button class="toggle-button" onclick="toggleContent('gba-section')">
+                <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                💡 El Servicio Eléctrico del Gran Buenos Aires: Un Caso Emblemático de Desarrollo Temprano
+            </button>
+            <div id="gba-section" class="toggle-content">
+                <p>El desarrollo del servicio eléctrico en el Gran Buenos Aires es un claro ejemplo de cómo la iniciativa privada, a menudo extranjera, dominó los primeros años del sector, sentando las bases de una infraestructura que luego sería clave para el crecimiento del país.</p>
+                <h4 class="text-lg">Orígenes y Expansión (1890s - 1930s)</h4>
+                <ul>
+                    <li><strong>Empresas Privadas Extranjeras:</strong> El suministro eléctrico en la región metropolitana de Buenos Aires estuvo inicialmente en manos de empresas de capitales foráneos. La más influyente fue la <span class="highlight-text"><strong>Compañía Alemana Transatlántica de Electricidad (CATE)</strong></span>, que comenzó sus operaciones a finales del siglo XIX. Estas empresas traían consigo la tecnología y el capital necesarios para un desarrollo a gran escala.</li>
+                    <li><strong>Expansión y Monopolio:</strong> CATE, a través de adquisiciones y una agresiva estrategia de expansión, consolidó rápidamente su posición, absorbiendo a competidores menores y extendiendo su red tanto en la Capital Federal como en el incipiente conurbano. Su enfoque inicial fue la iluminación pública y residencial, para luego expandirse al suministro para el transporte público, especialmente los tranvías eléctricos, que revolucionaron la movilidad urbana.</li>
+                    <li><strong>Tecnología Inicial:</strong> Las centrales térmicas a vapor, que utilizaban carbón como combustible, eran la columna vertebral de la generación. Estas plantas se ubicaban estratégicamente cerca de los centros de consumo para minimizar las pérdidas en la distribución, que en ese entonces era de alcance limitado y de menor tensión.</li>
+                </ul>
+                <h4 class="text-lg">Primeras Regulaciones y Tensiones (1930s - 1940s)</h4>
+                <p>La década de 1930, marcada por la Gran Depresión y un resurgimiento del nacionalismo económico, trajo consigo un cuestionamiento creciente sobre el control extranjero de los servicios públicos esenciales.</p>
+                <ul>
+                    <li><strong>Crisis Económica y Nacionalismo:</strong> La inestabilidad económica global y el auge de movimientos políticos que propugnaban una mayor soberanía nacional llevaron a un escrutinio más profundo del rol de las empresas de servicios públicos extranjeras. Se empezaron a debatir cuestiones como las tarifas, la calidad del servicio y la reinversión de ganancias.</li>
+                    <li><strong>Ley de Concesiones:</strong> Como respuesta a estas tensiones, se comenzaron a establecer marcos regulatorios más estrictos para las concesiones eléctricas. El objetivo era asegurar un mayor control estatal sobre aspectos críticos como la fijación de tarifas justas, la expansión de la red a zonas no rentables para el privado y la mejora de la calidad del servicio, sentando las bases para una futura intervención estatal más profunda.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Bloque 2: La Era del Desarrollo Estatal y la Integración Nacional (Mediados del Siglo XX - 1990)</h2>
+            <h3 class="text-xl">📈 Políticas Energéticas: Industrialización y Autoabastecimiento</h3>
+            <p>La segunda mitad del siglo XX en Argentina se caracterizó por un fuerte protagonismo del Estado en el sector eléctrico, impulsado por una visión de industrialización y la búsqueda de autoabastecimiento energético. Esta etapa sentó las bases de la infraestructura eléctrica nacional a través de grandes obras de ingeniería.</p>
+            <h4 class="text-lg">Décadas de 1940-1950: Nacionalización y Rol Protagónico del Estado</h4>
+            <ul>
+                <li><strong>Contexto:</strong> Tras la Segunda Guerra Mundial, el país se embarcó en un ambicioso proyecto de industrialización por sustitución de importaciones, liderado por el Peronismo. En este marco, el acceso a una energía abundante y a bajo costo se volvió fundamental. La soberanía energética y el autoabastecimiento fueron pilares de esta política.</li>
+                <li><span class="highlight-text"><strong>Hito Clave: Nacionalización de servicios públicos</strong></span> (incluida la electricidad) a partir de 1946. Esta medida, impulsada por la Doctrina Justicialista, buscaba recuperar el control sobre sectores estratégicos de la economía, que hasta entonces estaban mayormente en manos de capitales extranjeros.</li>
+                <li><strong>Creación de Entes Estatales:</strong> Para llevar adelante esta visión, se crearon poderosos organismos estatales:
+                    <ul>
+                        <li><span class="highlight-text"><strong>Agua y Energía Eléctrica (AyEE):</strong></span> Fundada en 1947, esta empresa estatal se convirtió en el principal motor del desarrollo eléctrico a nivel nacional. Su misión abarcaba la generación y transmisión de energía, con un énfasis particular en la construcción de grandes obras hidroeléctricas que aprovecharan el vasto potencial hídrico del país. AyEE fue responsable de la planificación y ejecución de proyectos de infraestructura de magnitud sin precedentes.</li>
+                        <li><span class="highlight-text"><strong>Servicios Eléctricos del Gran Buenos Aires (SEGBA):</strong></span> Creada en 1958, SEGBA surgió de la nacionalización de la CATE y otras empresas privadas que operaban en la región metropolitana. Su rol principal fue la distribución de energía en el área de mayor consumo del país, además de operar algunas centrales de generación para asegurar el suministro local.</li>
+                    </ul>
+                </li>
+                <li><strong>Justificación de las Políticas:</strong> Las razones detrás de esta fuerte intervención estatal eran múltiples y estratégicas:
+                    <ul>
+                        <li><strong>Integración y Federalismo:</strong> Se buscaba llevar electricidad a regiones remotas y menos desarrolladas del país, promoviendo un desarrollo más equitativo y la integración de todo el territorio nacional a través de un sistema interconectado.</li>
+                        <li><strong>Grandes Proyectos:</strong> La magnitud y el costo de las obras de infraestructura necesarias (grandes represas, centrales nucleares) superaban la capacidad de inversión del sector privado de la época. Solo el Estado, con su poder de planificación y financiamiento, podía emprender proyectos de tal envergadura.</li>
+                        <li><strong>Control de Tarifas:</strong> La nacionalización permitía al Estado controlar directamente las tarifas eléctricas, evitando posibles abusos de las empresas privadas y asegurando precios accesibles que beneficiaran tanto a la naciente industria nacional como a los hogares, considerándose la energía como un servicio público esencial y un motor de desarrollo.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <button class="toggle-button" onclick="toggleContent('projects-section')">
+                <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                💡 Proyectos Emblemáticos que Forjaron la Matriz Eléctrica Nacional
+            </button>
+            <div id="projects-section" class="toggle-content">
+                <p>Durante el período de predominio estatal, Argentina emprendió la construcción de mega-proyectos que transformaron radicalmente su matriz energética, diversificándola y aumentando significativamente su capacidad de generación.</p>
+                <h4 class="text-lg">Energía Hidroeléctrica: El Potencial de los Ríos</h4>
+                <ul>
+                    <li><strong>Décadas de 1960-1980:</strong> Se produjo un fuerte impulso a la construcción de grandes represas hidroeléctricas, aprovechando el inmenso potencial hídrico de los ríos argentinos, especialmente en la Patagonia y la Mesopotamia. Estos proyectos no solo generaban electricidad, sino que también contribuían al control de inundaciones, riego y desarrollo regional.</li>
+                    <li><strong>Ejemplos Clave:</strong>
+                        <ul>
+                            <li><span class="highlight-text"><strong>El Chocón (1973):</strong></span> Ubicada en Neuquén, fue una de las obras de ingeniería más grandes de su tiempo en América Latina. Su puesta en marcha fue fundamental para la consolidación del Sistema Interconectado Nacional (SADI), aportando una base de energía limpia y confiable para el crecimiento del país.</li>
+                            <li><span class="highlight-text"><strong>Salto Grande (1979, binacional con Uruguay):</strong></span> Este proyecto, construido en colaboración con Uruguay sobre el río Uruguay, es un ícono de integración regional. Su operación conjunta ha sido una fuente crucial de energía hidroeléctrica para ambos países, demostrando la viabilidad de la cooperación en grandes obras de infraestructura.</li>
+                            <li><span class="highlight-text"><strong>Futaleufú (1978):</strong></span> En Chubut, esta represa fue diseñada específicamente para abastecer de energía a la planta de aluminio de ALUAR, un ejemplo de cómo la generación eléctrica se vinculaba directamente con el desarrollo industrial estratégico.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Impacto:</strong> La expansión hidroeléctrica permitió una significativa reducción de la dependencia de combustibles fósiles, proporcionando una fuente de energía de base confiable, renovable y con menores emisiones de gases de efecto invernadero en comparación con las térmicas.</li>
+                </ul>
+                <h4 class="text-lg">Energía Nuclear: La Apuesta Estratégica</h4>
+                <ul>
+                    <li><strong>Década de 1970:</strong> Argentina se convirtió en pionera en América Latina al iniciar un ambicioso programa de desarrollo nuclear con fines pacíficos. Esta estrategia buscaba diversificar la matriz energética, reducir la dependencia de fuentes externas y, crucialmente, adquirir y dominar tecnología propia en un campo de alta complejidad.</li>
+                    <li><strong>Hitos Clave:</strong>
+                        <ul>
+                            <li><span class="highlight-text"><strong>Atucha I (1974):</strong></span> Inaugurada en la provincia de Buenos Aires, fue la primera central nuclear de América Latina. Su construcción y puesta en marcha representaron un salto cualitativo en la capacidad tecnológica del país.</li>
+                            <li><span class="highlight-text"><strong>Embalse (1984):</strong></span> Ubicada en Córdoba, fue la segunda central nuclear, diversificando la tecnología utilizada (CANDU, de origen canadiense, que permite el uso de uranio natural). Esto consolidó la capacidad argentina en el ciclo del combustible nuclear.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Impacto:</strong> La energía nuclear aportó una base estable y continua de generación eléctrica, con una baja emisión de gases contaminantes. Además, impulsó el desarrollo de capacidades científicas y tecnológicas avanzadas en el país, posicionando a Argentina como un referente regional en la materia.</li>
+                </ul>
+                <h4 class="text-lg">Centrales Térmicas: La Base Flexible</h4>
+                <ul>
+                    <li><strong>Expansión Continua:</strong> A pesar del desarrollo hidroeléctrico y nuclear, las centrales térmicas (que utilizan gas natural, fuel oil o carbón) continuaron siendo el pilar fundamental de la generación eléctrica argentina. Su flexibilidad les permitía adaptarse rápidamente a las fluctuaciones de la demanda y cubrir los picos de consumo.</li>
+                    <li><strong>Ubicación:</strong> Estas centrales se construyeron estratégicamente en las cercanías de los grandes centros de consumo (para minimizar pérdidas en la transmisión) o junto a importantes yacimientos de combustibles, facilitando el suministro de insumos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Bloque 3: La Reforma de la Ley 24.065 y la Nueva Estructura (Desde 1991)</h2>
+            <h3 class="text-xl">⚖️ La Gran Transformación: Desregulación y Privatización</h3>
+            <p>La década de 1990 marcó un punto de inflexión radical en la política energética argentina con la promulgación de la Ley 24.065. Esta legislación, enmarcada en un contexto de reformas estructurales a nivel global, buscó transformar un sector predominantemente estatal en uno basado en la competencia y la inversión privada.</p>
+            <h4 class="text-lg">Contexto (Principios de los 90s):</h4>
+            <ul>
+                <li><strong>Crisis Económica y Fiscal:</strong> Argentina enfrentaba una profunda crisis económica, caracterizada por hiperinflación, un elevado déficit fiscal y una pesada deuda externa. El Estado se encontraba con serias limitaciones para financiar la inversión y el mantenimiento de los servicios públicos.</li>
+                <li><strong>Deterioro de la Infraestructura:</strong> Años de subinversión y falta de mantenimiento habían llevado a un deterioro significativo de la infraestructura eléctrica, resultando en deficiencias en el suministro y cortes frecuentes, especialmente en las grandes ciudades.</li>
+                <li><strong>Movimiento Global hacia la Privatización:</strong> A nivel internacional, se observaba una tendencia creciente hacia la desregulación y privatización de servicios públicos, bajo la premisa de que la gestión privada sería más eficiente y atraería las inversiones necesarias.</li>
+                <li><strong>Objetivo de la Reforma:</strong> Los principales objetivos de la Ley 24.065 eran:
+                    <ul>
+                        <li>Reducir el gasto público y aliviar la carga fiscal del Estado.</li>
+                        <li>Atraer grandes volúmenes de inversión privada para modernizar y expandir la infraestructura eléctrica.</li>
+                        <li>Mejorar la eficiencia operativa y la calidad del servicio a través de la competencia y la gestión privada.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h4 class="text-lg">Hito Clave: Ley 24.065 (1991) - Marco Regulatorio Eléctrico</h4>
+            <p>Esta ley fue el instrumento legal que sentó las bases para la reestructuración completa del sector eléctrico argentino. Sus principios fundamentales buscaban introducir mecanismos de mercado y una nueva arquitectura institucional.</p>
+            <ul>
+                <li><strong>Principios:</strong>
+                    <ul>
+                        <li><span class="highlight-text"><strong>Desverticalización:</strong></span> Uno de los pilares de la reforma fue la separación estricta de las actividades de Generación, Transporte y Distribución. Antes, empresas como AyEE o SEGBA realizaban varias de estas funciones. Con la ley, cada una se convirtió en un negocio independiente, permitiendo la competencia en los segmentos donde era posible.</li>
+                        <li><span class="highlight-text"><strong>Competencia:</strong></span> Se fomentó la competencia en el segmento de Generación y en la comercialización mayorista de energía. La idea era que múltiples generadores compitieran por vender su energía al menor precio, lo que se traduciría en menores costos para el sistema.</li>
+                        <li><span class="highlight-text"><strong>Regulación:</strong></span> Para proteger a los consumidores y asegurar la eficiencia en los segmentos donde no era posible la competencia (monopolios naturales como el transporte y la distribución), se estableció un marco regulatorio robusto y la creación de organismos reguladores independientes.</li>
+                        <li><span class="highlight-text"><strong>Inversión Privada:</strong></span> La ley abrió de par en par el sector a la inversión de capitales privados, tanto nacionales como extranjeros, para que asumieran la responsabilidad de la operación, el mantenimiento y la expansión de la infraestructura.</li>
+                    </ul>
+                </li>
+                <li><strong>Impacto Inmediato:</strong>
+                    <ul>
+                        <li><strong>Privatización:</strong> La consecuencia directa fue la venta de las principales empresas estatales del sector, como AyEE y SEGBA, así como de numerosas centrales de generación, a operadores privados. Este proceso generó importantes ingresos para el Estado y transfirió la gestión a nuevas manos.</li>
+                        <li><strong>Creación de Nuevas Empresas:</strong> La desverticalización y privatización dieron lugar al surgimiento de un gran número de nuevas empresas, especializadas en cada uno de los segmentos (generación, transporte, distribución), lo que reconfiguró por completo el mapa empresarial del sector.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3 class="text-xl">💡 La Nueva Estructura del Sector Eléctrico Argentino (Post-Ley 24.065)</h3>
+            <p>Tras la reforma de 1991, el sector eléctrico argentino adoptó una estructura de mercado que, aunque ha sufrido ajustes, mantiene sus principios fundamentales hasta la actualidad. Se basa en la interacción de diferentes segmentos y organismos que garantizan el flujo de energía desde su producción hasta el consumo final.</p>
+            <h4 class="text-lg">Diagrama de Flujo: Del Generador al Consumidor</h4>
+            <div class="flow-diagram">
+                <div class="horizontal-flow">
+                    <div class="flow-node">GENERACIÓN<br>(Centrales)</div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">TRANSMISIÓN<br>(Líneas de Alta)</div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">DISTRIBUCIÓN<br>(Redes Locales)</div>
+                    <div class="flow-arrow"></div>
+                    <div class="flow-node">CONSUMIDORES<br>(Hogares, Industrias)</div>
+                </div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node">MERCADO ELÉCTRICO<br>MAYORISTA (MEM)<br>(CAMMESA: Administrador)</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node">REGULACIÓN<br>(ENRE)</div>
+            </div>
+            <p>Este diagrama ilustra la cadena de valor de la electricidad, desde su origen hasta su destino final, y cómo los organismos clave interactúan para coordinar y regular el sistema.</p>
+
+            <h4 class="text-lg">Actores Principales y sus Roles:</h4>
+            <p>Cada segmento del sector eléctrico post-reforma tiene actores específicos con funciones y responsabilidades bien definidas:</p>
+            <ol>
+                <li><strong>Generación:</strong>
+                    <ul>
+                        <li><strong>Función:</strong> Este segmento es responsable de la producción de energía eléctrica utilizando diversas fuentes primarias: centrales térmicas (gas natural, fuel oil, carbón), hidroeléctricas (aprovechamiento de la fuerza del agua), nucleares (fisión atómica) y renovables (eólica, solar, biomasa, pequeños aprovechamientos hidroeléctricos).</li>
+                        <li><strong>Característica:</strong> Es el único segmento competitivo del sector. Múltiples empresas generadoras compiten entre sí para vender su energía en el Mercado Eléctrico Mayorista (MEM), buscando la eficiencia y el menor costo.</li>
+                        <li><strong>Ejemplos:</strong> Empresas como Central Puerto, Pampa Energía, AES Argentina, y la estatal Nucleoeléctrica Argentina (NA-SA), que opera las centrales nucleares.</li>
+                    </ul>
+                </li>
+                <li><strong>Transmisión:</strong>
+                    <ul>
+                        <li><strong>Función:</strong> Consiste en el transporte de grandes volúmenes de energía eléctrica a muy alta tensión desde las centrales de generación hasta los grandes centros de consumo o los puntos de interconexión con las redes de distribución. Se realiza a través de líneas de alta tensión y subestaciones transformadoras.</li>
+                        <li><strong>Característica:</strong> Es un monopolio natural regulado. No es eficiente ni práctico que existan múltiples líneas de alta tensión paralelas. Por lo tanto, su operación está estrictamente regulada para garantizar el acceso no discriminatorio y la calidad del servicio.</li>
+                        <li><strong>Actores Clave:</strong>
+                            <ul>
+                                <li><strong>Transportista de Energía Eléctrica en Alta Tensión (TRANSENER S.A.):</strong> Es la principal empresa encargada de operar y mantener el Sistema Argentino de Interconexión (SADI), la red troncal de alta tensión que conecta todo el país.</li>
+                                <li><strong>Empresas de Transporte Regional:</strong> Existen varias empresas que operan las líneas de alta tensión en las distintas provincias, conectando la red troncal con los puntos de distribución locales.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Distribución:</strong>
+                    <ul>
+                        <li><strong>Función:</strong> Se encarga de llevar la energía eléctrica desde los puntos de entrega de la red de transmisión hasta los consumidores finales (hogares, comercios, industrias). Esto se realiza a través de redes de baja y media tensión, que incluyen subestaciones transformadoras, líneas y postes.</li>
+                        <li><strong>Característica:</strong> Al igual que la transmisión, es un monopolio natural regulado a nivel local. No sería viable ni eficiente tener múltiples redes de distribución en una misma área geográfica.</li>
+                        <li><strong>Ejemplos:</strong>
+                            <ul>
+                                <li><strong>Edenor y Edesur:</strong> Son las dos principales empresas distribuidoras que operan en el Gran Buenos Aires y la Ciudad Autónoma de Buenos Aires, las áreas de mayor densidad poblacional y consumo.</li>
+                                <li><strong>Empresas provinciales:</strong> En el resto del país, la distribución está a cargo de diversas empresas, muchas de ellas de capital provincial o cooperativas, como EPEC (Empresa Provincial de Energía de Córdoba), EDET (Empresa de Distribución Eléctrica de Tucumán), EPE (Empresa Provincial de la Energía de Santa Fe), entre otras.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Organismos Rectores y Reguladores:</strong>
+                    <p>Para asegurar el funcionamiento coordinado y equitativo del sistema, existen dos organismos clave:</p>
+                    <ul>
+                        <li><strong>Compañía Administradora del Mercado Mayorista Eléctrico (CAMMESA):</strong>
+                            <ul>
+                                <li><strong>Rol:</strong> Es el corazón operativo del sistema eléctrico argentino. Administra y opera el Mercado Eléctrico Mayorista (MEM), donde se compran y venden grandes bloques de energía. Su función más crítica es la de coordinar el despacho de carga, es decir, decidir en tiempo real qué centrales de generación deben operar y en qué momento para satisfacer la demanda eléctrica del sistema al menor costo posible, garantizando al mismo tiempo la seguridad y estabilidad del suministro. También realiza la planificación operativa del sistema.</li>
+                                <li><strong>Naturaleza:</strong> Es una empresa mixta, con capital estatal (40%) y de las principales asociaciones de empresas del sector (generadores, transportistas, distribuidores y grandes usuarios, cada una con un 15%).</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ente Nacional Regulador de la Electricidad (ENRE):</strong>
+                            <ul>
+                                <li><strong>Rol:</strong> Es el organismo de control y fiscalización. Aplica y fiscaliza el cumplimiento del marco regulatorio establecido por la Ley 24.065. Sus funciones incluyen proteger los derechos de los usuarios, controlar la calidad del servicio ofrecido por las empresas de transporte y distribución, y fijar las tarifas de estos segmentos regulados, buscando un equilibrio entre los intereses de los consumidores y la rentabilidad de las empresas.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Bloque 4: La Matriz Energética Argentina: Evolución y Composición Actual</h2>
+            <h3 class="text-xl">📊 Composición y Tendencias</h3>
+            <p>La matriz energética argentina ha experimentado una evolución significativa a lo largo del tiempo, influenciada por la disponibilidad de recursos naturales, las decisiones de inversión en infraestructura y las cambiantes tendencias globales en materia energética. Comprender su composición actual es clave para analizar los desafíos y oportunidades futuras.</p>
+
+            <h4 class="text-lg">Gráfico de Torta: Matriz de Generación Eléctrica Argentina (Ej. Año Reciente, 2023/2024)</h4>
+            <div class="pie-chart-container">
+                <svg viewBox="0 0 100 100" width="100%" height="100%">
+                    <circle cx="50" cy="50" r="40" fill="#a8dadc" stroke="#ffffff" stroke-width="2"
+                            clip-path="url(#cut-thermal)"/>
+                    <defs>
+                        <clipPath id="cut-thermal">
+                            <path d="M50 50 L50 10 A40 40 0 0 1 86.84 85.87 L50 50 Z" />
+                        </clipPath>
+                    </defs>
+
+                    <circle cx="50" cy="50" r="40" fill="#457b9d" stroke="#ffffff" stroke-width="2"
+                            clip-path="url(#cut-hydro)"/>
+                    <defs>
+                        <clipPath id="cut-hydro">
+                            <path d="M50 50 L86.84 85.87 A40 40 0 0 1 13.16 85.87 L50 50 Z" />
+                        </clipPath>
+                    </defs>
+
+                    <circle cx="50" cy="50" r="40" fill="#1d3557" stroke="#ffffff" stroke-width="2"
+                            clip-path="url(#cut-nuclear)"/>
+                    <defs>
+                        <clipPath id="cut-nuclear">
+                            <path d="M50 50 L13.16 85.87 A40 40 0 0 1 13.16 14.13 L50 50 Z" />
+                        </clipPath>
+                    </defs>
+
+                    <circle cx="50" cy="50" r="40" fill="#2a9d8f" stroke="#ffffff" stroke-width="2"
+                            clip-path="url(#cut-renewables)"/>
+                    <defs>
+                        <clipPath id="cut-renewables">
+                            <path d="M50 50 L13.16 14.13 A40 40 0 0 1 50 10 L50 50 Z" />
+                        </clipPath>
+                    </defs>
+
+                    <text x="75" y="45" font-size="7" text-anchor="middle" fill="#FFFFFF" font-weight="bold">57.5%</text>
+                    <text x="25" y="75" font-size="7" text-anchor="middle" fill="#FFFFFF" font-weight="bold">27.5%</text>
+                    <text x="20" y="25" font-size="7" text-anchor="middle" fill="#FFFFFF" font-weight="bold">6%</text>
+                    <text x="65" y="20" font-size="7" text-anchor="middle" fill="#343a40" font-weight="bold">9%</text>
+                </svg>
+            </div>
+            <div class="pie-chart-legend">
+                <div class="legend-item"><span class="legend-color-box" style="background-color: #a8dadc;"></span>Térmica (55-60%)</div>
+                <div class="legend-item"><span class="legend-color-box" style="background-color: #457b9d;"></span>Hidroeléctrica (25-30%)</div>
+                <div class="legend-item"><span class="legend-color-box" style="background-color: #1d3557;"></span>Nuclear (5-7%)</div>
+                <div class="legend-item"><span class="legend-color-box" style="background-color: #2a9d8f;"></span>Renovables (8-10%)</div>
+            </div>
+            <p>Este gráfico de torta representa la composición aproximada de la matriz de generación eléctrica en Argentina en un año reciente (ej. 2023/2024). Se observa una fuerte dependencia de la generación térmica, aunque las fuentes renovables muestran un crecimiento sostenido.</p>
+
+            <h4 class="text-lg">Línea de Tiempo: Evolución de la Matriz</h4>
+            <ul class="timeline">
+                <li class="timeline-item">
+                    <div class="timeline-item-date">Fines s. XIX - Mediados s. XX</div>
+                    <div class="timeline-item-title">Predominio Local y Térmico</div>
+                    <p>En los orígenes, la generación eléctrica era predominantemente local y se basaba en centrales térmicas a vapor que utilizaban carbón. El enfoque principal era la iluminación de las ciudades, con una infraestructura limitada y descentralizada.</p>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-item-date">Mediados s. XX - 1990</div>
+                    <div class="timeline-item-title">Expansión Estatal e Integración</div>
+                    <p>Este período estuvo marcado por un fuerte impulso estatal. Se construyeron grandes represas hidroeléctricas (como El Chocón y Salto Grande) y se inició el programa nuclear (con Atucha I y Embalse). Esto llevó a un crecimiento significativo de la capacidad instalada y a la integración del Sistema Argentino de Interconexión (SADI), diversificando la matriz y reduciendo la dependencia de los combustibles fósiles.</p>
+                </li>
+                <li class="timeline-item">
+                    <div class="timeline-item-date">Post-1991</div>
+                    <div class="timeline-item-title">Desregulación y Diversificación</div>
+                    <p>Tras la Ley 24.065, el sector se abrió a la inversión privada, lo que generó una mayor diversificación de los actores en generación. Si bien la generación térmica mantuvo su predominio, las últimas décadas han visto un crecimiento sostenido de las energías renovables (eólica y solar), impulsado por políticas de fomento como la Ley 27.191 que establece metas de participación de estas fuentes en la matriz.</p>
+                </li>
+            </ul>
+        </div>
+
+        <div class="section-box">
+            <h2 class="text-2xl">Bloque 5: Conceptos Clave del Sector Eléctrico</h2>
+            <h3 class="text-xl">Definiciones Fundamentales</h3>
+            <p>Para una comprensión profunda del sector eléctrico, es esencial familiarizarse con la terminología específica que describe sus componentes y procesos. A continuación, se presentan las definiciones de los conceptos más relevantes:</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold text-gray-700">Mercado Eléctrico Mayorista (MEM):</h4>
+                    <p>Es el ámbito central donde se lleva a cabo la comercialización de la energía eléctrica en grandes volúmenes. Aquí interactúan los generadores (que venden su producción), los transportistas, los distribuidores (que compran para sus usuarios) y los grandes usuarios (que compran directamente). La administración técnica y económica de este mercado es responsabilidad de CAMMESA, que busca optimizar el despacho de energía y asegurar la estabilidad del sistema.</p>
+                </div>
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold text-gray-700">Despacho de Carga:</h4>
+                    <p>Es el proceso técnico y económico mediante el cual CAMMESA, como operador del sistema, determina en tiempo real qué centrales de generación deben operar, en qué cantidad y en qué momento. El objetivo principal es satisfacer la demanda eléctrica del sistema interconectado al menor costo posible, garantizando al mismo tiempo la seguridad, la calidad y la confiabilidad del suministro eléctrico en todo el país.</p>
+                </div>
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold text-gray-700">Generación:</h4>
+                    <p>Se refiere al proceso de transformación de diversas formas de energía primaria (como la energía hidráulica de los ríos, la energía térmica de combustibles fósiles, la energía nuclear, o la energía eólica y solar) en energía eléctrica. Este es el primer eslabón de la cadena de valor eléctrica, donde se produce la electricidad que luego será transportada y distribuida.</p>
+                </div>
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold text-gray-700">Transmisión:</h4>
+                    <p>Es la actividad de transportar grandes bloques de energía eléctrica a muy alta tensión a través de extensas redes de líneas y torres (el "tendido eléctrico"). Su función es mover la electricidad desde las centrales de generación, a menudo ubicadas lejos de los centros de consumo, hasta las proximidades de las grandes ciudades o subestaciones donde se reduce la tensión para la distribución.</p>
+                </div>
+                <div class="p-4 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold text-gray-700">Distribución:</h4>
+                    <p>Constituye el último eslabón de la cadena de suministro eléctrico. Implica la entrega de la energía eléctrica a los usuarios finales (hogares, comercios, industrias) a través de redes de baja y media tensión. Las empresas distribuidoras son las encargadas de operar y mantener estas redes locales, así como de la facturación y atención al cliente.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para los menús desplegables
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = content.previousElementSibling; // El botón está justo antes del contenido
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                button.querySelector('svg path').setAttribute('d', 'M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z'); // Plus icon
+            } else {
+                content.classList.add('expanded');
+                button.querySelector('svg path').setAttribute('d', 'M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z'); // Minus icon
+            }
+        }
+
+        // Función para dibujar el gráfico de torta (ajustando los ángulos)
+        function drawPieChart() {
+            const data = {
+                thermal: 57.5, // 55-60% average
+                hydro: 27.5,  // 25-30% average
+                nuclear: 6,   // 5-7% average
+                renewables: 9 // 8-10% average
+            };
+            const colors = {
+                thermal: '#a8dadc',
+                hydro: '#457b9d',
+                nuclear: '#1d3557',
+                renewables: '#2a9d8f'
+            };
+
+            const total = Object.values(data).reduce((sum, val) => sum + val, 0);
+            let startAngle = 0; // Start at the top (0 degrees)
+
+            const svg = document.querySelector('.pie-chart-container svg');
+            svg.innerHTML = ''; // Clear existing segments if any
+
+            for (const key in data) {
+                const value = data[key];
+                const angle = (value / total) * 360;
+                const endAngle = startAngle + angle;
+
+                const x1 = 50 + 40 * Math.cos(Math.PI * startAngle / 180);
+                const y1 = 50 + 40 * Math.sin(Math.PI * startAngle / 180);
+                const x2 = 50 + 40 * Math.cos(Math.PI * endAngle / 180);
+                const y2 = 50 + 40 * Math.sin(Math.PI * endAngle / 180);
+
+                const largeArcFlag = angle > 180 ? 1 : 0;
+
+                const pathData = [
+                    `M 50 50`,
+                    `L ${x1} ${y1}`,
+                    `A 40 40 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+                    `Z`
+                ].join(' ');
+
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', pathData);
+                path.setAttribute('fill', colors[key]);
+                path.setAttribute('stroke', '#ffffff');
+                path.setAttribute('stroke-width', '0.5'); // Reduced stroke width for better look
+                svg.appendChild(path);
+
+                // Add text labels (adjusted positioning and style for visibility)
+                const midAngle = startAngle + angle / 2;
+                let textX = 50 + 60 * Math.cos(Math.PI * midAngle / 180); // Further out for text
+                let textY = 50 + 60 * Math.sin(Math.PI * midAngle / 180);
+
+                // Adjust text position for better readability, especially for smaller slices
+                if (key === 'nuclear') { // Nuclear slice is small, adjust position to be inside or very close
+                    textX = 50 + 30 * Math.cos(Math.PI * midAngle / 180);
+                    textY = 50 + 30 * Math.sin(Math.PI * midAngle / 180);
+                } else if (key === 'renewables') { // Renewables slice is also small
+                    textX = 50 + 30 * Math.cos(Math.PI * midAngle / 180);
+                    textY = 50 + 30 * Math.sin(Math.PI * midAngle / 180);
+                }
+
+
+                const textElement = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                textElement.setAttribute('x', textX);
+                textElement.setAttribute('y', textY);
+                textElement.setAttribute('font-size', '6'); /* Slightly smaller font for better fit */
+                textElement.setAttribute('text-anchor', 'middle');
+                textElement.setAttribute('fill', (key === 'thermal' || key === 'hydro') ? '#FFFFFF' : '#343a40'); /* White for dark backgrounds, dark for light */
+                textElement.setAttribute('font-weight', 'bold');
+                textElement.textContent = `${value}%`;
+                svg.appendChild(textElement);
+
+
+                startAngle = endAngle;
+            }
+        }
+
+        // Call drawPieChart on window load
+        window.onload = function() {
+            drawPieChart();
+        };
+    </script>
+</body>
+</html>
